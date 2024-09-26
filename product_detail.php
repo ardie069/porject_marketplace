@@ -1,35 +1,3 @@
-<?php
-session_start();
-
-error_reporting(0);
-
-include('koneksi/koneksi.php');
-
-$id_barang = $_GET['id_barang'];
-$jenis_barang = $_GET['jenis_barang'];
-
-$sql = "SELECT * FROM barang,toko WHERE barang.id_toko = toko.id_toko AND barang.id_barang='$id_barang'";
-$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi, $sql));
-
-$sql_akun = "SELECT * FROM akun WHERE username='$_SESSION[username]' OR email='$_SESSION[username]' OR no_telp='$_SESSION[username]'";
-$query = mysqli_query($koneksi, $sql_akun);
-$data = mysqli_fetch_array($query);
-
-$wish = "SELECT * FROM wishlist JOIN akun ON wishlist.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]'";
-
-$data_wish = mysqli_query($koneksi, $wish);
-$total_wish = mysqli_num_rows($data_wish);
-
-$order = "SELECT * FROM cart JOIN akun ON cart.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-
-$data_order = mysqli_query($koneksi, $order);
-$total_order = mysqli_num_rows($data_order);
-
-while ($tampil = mysqli_fetch_array($hasil)) {
-    $variasi = explode(",", $tampil['variasi']);
-    $warna = explode(",", $tampil['warna']);
-
-    ?>
 <!DOCTYPE html>
 <html>
 
@@ -694,5 +662,3 @@ while ($tampil = mysqli_fetch_array($hasil)) {
 </body>
 
 </html>
-
-<?php }  ?>

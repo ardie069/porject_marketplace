@@ -1,51 +1,3 @@
-<?php
-session_start();
-
-error_reporting(0);
-
-include('koneksi/koneksi.php');
-
-$batas = 8;
-$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
-$halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
-
-$previous = $halaman - 1;
-$next = $halaman + 1;
-
-$sql = "SELECT * FROM barang";
-$query = mysqli_query($koneksi, $sql);
-$data = mysqli_fetch_array($query);
-$jumlah_data = mysqli_num_rows($query);
-$total_halaman = ceil($jumlah_data / $batas);
-
-$sql_user = "SELECT * FROM akun WHERE username='$_SESSION[username]' OR email='$_SESSION[username]' OR no_telp='$_SESSION[username]'";
-$query_user = mysqli_query($koneksi, $sql_user);
-$data_user = mysqli_fetch_array($query_user);
-
-if (isset($_GET['cari'])) {
-
-    $cari = $_GET['cari'];
-    $sql_barang = "SELECT * FROM barang WHERE nama_barang LIKE '%" . $cari . "%' OR jenis_barang LIKE '%" . $cari . "%'";
-    $data_barang = mysqli_query($koneksi, $sql_barang);
-    $barang = mysqli_num_rows($data_barang);
-} else {
-
-    $sql_barang = "SELECT * FROM barang";
-    $data_barang = mysqli_query($koneksi, $sql_barang);
-    $barang = mysqli_num_rows($data_barang);
-}
-
-$wish = "SELECT * FROM wishlist JOIN akun ON wishlist.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]'";
-
-$data_wish = mysqli_query($koneksi, $wish);
-$total_wish = mysqli_num_rows($data_wish);
-
-$order = "SELECT * FROM cart JOIN akun ON cart.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-
-$data_order = mysqli_query($koneksi, $order);
-$total_order = mysqli_num_rows($data_order);
-
-?>
 <!DOCTYPE html>
 <html>
 
@@ -86,46 +38,10 @@ $total_order = mysqli_num_rows($data_order);
                     </div>
                     <div class="col-md-6 text-right d-md-none d-lg-block">
                         <ul class="top-links account-links">
-                            <?php
-
-                            if ($_SESSION['status'] == "seller") {
-                                echo ("
-                                    <li>
-                                    <i class='ni ni-bag-17'></i> 
-                                    <a href='seller.php'>Seller</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-user-circle-o'></i> 
-                                    <a href='account.php'>" . $data_user['nama'] . "</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                                    </li>");
-                            } elseif ($_SESSION['status'] == "member") {
-                                echo ("
-                                    <li>
-                                    <i class='fa fa-address-card-o'></i> 
-                                    <a href='register_seller.php'>Ingin Buka Toko?</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-user-circle-o'></i> 
-                                    <a href='account.php'>" . $data_user['nama'] . "</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                                    </li>");
-                            } else {
-                                echo ("
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='login.php'>Masuk</a>
-                                    </li>");
-                            }
-
-                            ?>
-
+                            <li>
+                                <i class='fa fa-power-off'></i>
+                                <a href='login.php'>Masuk</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -176,28 +92,12 @@ $total_order = mysqli_num_rows($data_order);
                     </div>
                     <div class="col-lg-2 col-12 col-sm-6">
                         <div class="right-icons pull-right d-none d-lg-block">
-                            <?php
-                            if ($_SESSION['status'] == 'member' || $_SESSION['status'] == 'seller') {
-
-                                echo "
-                                <div class='single-icon wishlist'>
-                                <a href='wishlist.php'><i class='fa fa-heart-o fa-2x'></i></a>
-                                <span class='badge badge-default'>" . $total_wish . "</span>
-                                </div>
-                                <div class='single-icon shopping-cart'>
-                                <a href='cart.php''><i class='fa fa-shopping-cart fa-2x'></i></a>
-                                <span class='badge badge-default'>" . $total_order . "</span>
-                                </div>";
-                            } else {
-                                echo "
-                                <div class='single-icon wishlist'>
+                            <div class='single-icon wishlist'>
                                 <a href='login.php'><i class='fa fa-heart-o fa-2x'></i></a>
-                                </div>
-                                <div class='single-icon shopping-cart'>
-                                <a href='login.php''><i class='fa fa-shopping-cart fa-2x'></i></a>
-                                </div>";
-                            }
-                            ?>
+                            </div>
+                            <div class='single-icon shopping-cart'>
+                                <a href='login.php''><i class=' fa fa-shopping-cart fa-2x'></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -216,58 +116,10 @@ $total_order = mysqli_num_rows($data_order);
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="index.php">Beranda</a>
                         </li>
-                        <?php
-
-                if ($_SESSION['status'] == 'member') {
-                    echo ("      
-                      <ul class='navbar-nav'>
-                      <li class='nav-item dropdown'>
-                      <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' aria-expanded='true'>Laman</a>
-                      <div class='dropdown-menu'>
-                      <a class='dropdown-item' href='products.php'>Produk</a>
-                      <a class='dropdown-item' href='cart.php'>Keranjang</a>
-                      <a class='dropdown-item' href='order_detail.php'>Rincian Pesanan</a>
-                      </div>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='register_seller.php'>Ingin Buka Toko?</a>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='account.php'>$data[nama]</a>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                      </li>
-                      </ul>
-                      ");
-                } elseif ($_SESSION['status'] == 'seller') {
-                    echo ("<ul class='navbar-nav'>
-                      <li class='nav-item dropdown'>
-                      <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' aria-expanded='true'>Laman</a>
-                      <div class='dropdown-menu'>
-                      <a class='dropdown-item' href='products.php'>Produk</a>
-                      <a class='dropdown-item' href='cart.php'>Keranjang</a>
-                      <a class='dropdown-item' href='order_detail.php'>Rincian Pesanan</a>
-                      </div>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='register_seller.php'>Ingin Buka Toko?</a>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='account.php'>$data[nama]</a>
-                      </li>
-                      <li class='nav-item d-lg-none'>
-                      <a class='nav-link' href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar'>Keluar</a>
-                      </li>
-                      </ul>");
-                } else {
-                    echo ("<a class='nav-link' href='products.php'>Produk</a>
+                        <a class='nav-link' href='products.php'>Produk</a>
                         <li class='nav-item d-lg-none'>
-                        <a class='nav-link' href='login.php'>Masuk</a>
-                        </li>");
-                }
-
-                ?>
+                            <a class='nav-link' href='login.php'>Masuk</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -329,89 +181,52 @@ $total_order = mysqli_num_rows($data_order);
                     <div class="row">
                         <div class="col-12">
                             <p class="alert alert-secondary text-dark">
-                                <span><?php echo $barang; ?></span> produk
+                                <span>0</span> produk
                             </p>
                         </div>
                     </div>
-                    <div class=" row">
-                        <?php
-                    if (isset($_GET['cari'])) {
-                        $cari = $_GET['cari'];
-                        $sql = "SELECT * FROM barang WHERE nama_barang LIKE '%" . $cari . "%' OR jenis_barang LIKE '%" . $cari . "%'";
-                    } elseif (isset($_POST['cari_num'])) {
-                        $sql = "SELECT * FROM barang WHERE harga_barang BETWEEN '" . $_POST['min_price'] . "' AND '" . $_POST['max_price'] . "'";
-                    } else {
-                        $sql = "SELECT * FROM barang LIMIT $halaman_awal, $batas";
-                        $nomor = $halaman_awal + 1;
-                    }
-                    foreach ($koneksi->query($sql) as $data) :
-                        ?>
+                    <div class="row">
                         <div class="col-lg-3 col-md-6 col-12 mb-3">
                             <div class="card" style="height: 100%;">
-                                <img src="img/<?php echo $data['foto_barang']; ?>" class="card-img-top" height="50%">
+                                <img src="" class="card-img-top" height="50%">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo $data['nama_barang']; ?></h5>
-                                    <p class="card-text">Rp.
-                                        <?php echo number_format($data['harga_barang'], 2, ",", "."); ?></p>
-                                    <a href="product_detail.php?id_barang=<?php echo $data['id_barang']; ?>&jenis_barang=<?php echo $data['jenis_barang']; ?>"
+                                    <h5 class="card-title"></h5>
+                                    <p class="card-text">Rp. 0</p>
+                                    <a href=""
                                         class="btn btn-primary">Lihat Produk</a>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                            endforeach;
-                            ?>
                     </div>
                     <div class="row">
                         <div class="col-12 mt-3">
                             <ul class="pagination">
                                 <!-- previous -->
-                                <?php if($halaman == $total_halaman) {?>
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
-                                </li>
-                                <?php } else { ?>
                                 <li class="page-item">
-                                    <a class="page-link" <?php if ($halaman == $total_halaman) {
-                                                echo "href='?halaman=$Previous'";
-                                            } ?>><i class="fa fa-angle-left"></i></a>
+                                    <a class="page-link"><i class="fa fa-angle-left"></i></a>
                                 </li>
-                                <?php }?>
                                 <!-- current page -->
-                                <?php
-                                    for ($x = 1; $x <= $total_halaman; $x++) {
-                                        if ($x == $halaman) {
-                                            ?>
                                 <li class="page-item active">
-                                    <a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?><span
+                                    <a class="page-link" href=""><span
                                             class="sr-only">(current)</span>
                                     </a>
                                 </li>
-                                <?php } else { ?>
+
                                 <li class="page-item">
-                                    <a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?>
+                                    <a class="page-link" href="">
                                     </a>
                                 </li>
-                                <?php
-                                    }
-                                }
-                                ?>
                                 <!-- next -->
-                                <?php if($halaman < $total_halaman) {?>
                                 <li class=" page-item">
-                                    <a class="page-link" <?php if ($halaman < $total_halaman) {
-                                            echo "href='?halaman=$next'";
-                                        } ?>>
+                                    <a class="page-link">
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>
-                                <?php } elseif($x = $halaman == $total_halaman) { ?>
                                 <li class=" page-item disabled">
                                     <a class="page-link" href="#">
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>
-                                <?php }?>
                             </ul>
                         </div>
                     </div>
@@ -524,29 +339,29 @@ $total_order = mysqli_num_rows($data_order);
     <script src="./assets/js/main.js"></script>
 
     <script type="text/javascript">
-    // UI Slider
-    $(function() {
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 10000000,
-            values: [1000, 10000000],
-            slide: function(event, ui) {
-                $("#amount").val("Rp. " + ui.values[0] + " - Rp. " + ui.values[1]);
-            },
+        // UI Slider
+        $(function() {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 10000000,
+                values: [1000, 10000000],
+                slide: function(event, ui) {
+                    $("#amount").val("Rp. " + ui.values[0] + " - Rp. " + ui.values[1]);
+                },
+            });
+            $("#amount").val("Rp. " + $("#slider-range").slider("values", 0) + " - Rp. " + $("#slider-range")
+                .slider("values", 1));
         });
-        $("#amount").val("Rp. " + $("#slider-range").slider("values", 0) + " - Rp. " + $("#slider-range")
-            .slider("values", 1));
-    });
 
-    $("#pakaian").on('click', function(event) {
-        document.querySelector('#cari').value = "Pakaian";
-        document.querySelector('#btnCari').click();
-    });
-    $("#elektronik").on('click', function(event) {
-        document.querySelector('#cari').value = "Elektronik";
-        document.querySelector('#btnCari').click();
-    });
+        $("#pakaian").on('click', function(event) {
+            document.querySelector('#cari').value = "Pakaian";
+            document.querySelector('#btnCari').click();
+        });
+        $("#elektronik").on('click', function(event) {
+            document.querySelector('#cari').value = "Elektronik";
+            document.querySelector('#btnCari').click();
+        });
     </script>
 </body>
 

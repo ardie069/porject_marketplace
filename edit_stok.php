@@ -1,38 +1,3 @@
-<?php
-session_start();
-// error_reporting(0);
-include('koneksi/koneksi.php');
-
-$sql = "SELECT * FROM akun WHERE username='$_SESSION[username]' OR email='$_SESSION[username]' OR no_telp='$_SESSION[username]'";
-$query = mysqli_query($koneksi, $sql);
-$data_user = mysqli_fetch_array($query);
-
-$data_foto = $data_user['foto'];
-
-$sqlToko = "SELECT * FROM toko JOIN akun ON toko.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-$queryToko = mysqli_query($koneksi, $sqlToko);
-$toko = mysqli_fetch_array($queryToko);
-
-$fotoToko = $toko['foto_toko'];
-
-$wish = "SELECT * FROM wishlist JOIN akun ON wishlist.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-$data_wish = mysqli_query($koneksi, $wish);
-$total_wish = mysqli_num_rows($data_wish);
-
-$order = "SELECT * FROM cart JOIN akun ON cart.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-$data_order = mysqli_query($koneksi, $order);
-$total_order = mysqli_num_rows($data_order);
-
-$id_stok=$_GET['id_stok'];
-$id_barang=$_GET['id_barang'];
-$sql_barang = "SELECT * FROM barang,toko,stok WHERE barang.id_toko = toko.id_toko AND barang.id_barang = stok.id_barang AND stok.id_stok='$id_stok'";
-$hasil=mysqli_query($koneksi, $sql_barang);
-while ($tampil=mysqli_fetch_array($hasil)) {
-
-$variasi = explode(",", $tampil['variasi']);
-$warna = explode(",", $tampil['warna']);
-
-?>
 <!DOCTYPE html>
 <html>
 
@@ -423,4 +388,3 @@ $warna = explode(",", $tampil['warna']);
 </body>
 
 </html>
-<?php }  ?>
