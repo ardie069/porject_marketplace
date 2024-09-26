@@ -39,45 +39,10 @@
                     </div>
                     <div class="col-md-6 text-right d-md-none d-lg-block">
                         <ul class="top-links account-links">
-                            <?php
-
-                            if ($_SESSION['status'] == "seller") {
-                                echo ("
-                                    <li>
-                                    <i class='ni ni-bag-17'></i> 
-                                    <a href='seller.php'>Seller</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-user-circle-o'></i> 
-                                    <a href='account.php'>" . $data_user['nama'] . "</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                                    </li>");
-                            } elseif ($_SESSION['status'] == "member") {
-                                echo ("
-                                    <li>
-                                    <i class='fa fa-address-card-o'></i> 
-                                    <a href='register_seller.php'>Ingin Buka Toko?</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-user-circle-o'></i> 
-                                    <a href='account.php'>" . $data_user['nama'] . "</a>
-                                    </li>
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                                    </li>");
-                            } else {
-                                echo ("
-                                    <li>
-                                    <i class='fa fa-power-off'></i> 
-                                    <a href='login.php'>Masuk</a>
-                                    </li>");
-                            }
-
-                            ?>
+                            <li>
+                                <i class='fa fa-power-off'></i>
+                                <a href='login.php'>Masuk</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -128,28 +93,12 @@
                     </div>
                     <div class="col-lg-2 col-12 col-sm-6">
                         <div class="right-icons pull-right d-none d-lg-block">
-                            <?php
-                            if ($_SESSION['status'] == 'member' || $_SESSION['status'] == 'seller'){
-
-                                echo "
-                                <div class='single-icon wishlist'>
-                                <a href='wishlist.php'><i class='fa fa-heart-o fa-2x'></i></a>
-                                <span class='badge badge-default'>".$total_wish."</span>
-                                </div>
-                                <div class='single-icon shopping-cart'>
-                                <a href='cart.php''><i class='fa fa-shopping-cart fa-2x'></i></a>
-                                <span class='badge badge-default'>".$total_order."</span>
-                                </div>";
-                            } else {
-                                echo "
-                                <div class='single-icon wishlist'>
+                            <div class='single-icon wishlist'>
                                 <a href='login.php'><i class='fa fa-heart-o fa-2x'></i></a>
-                                </div>
-                                <div class='single-icon shopping-cart'>
-                                <a href='login.php''><i class='fa fa-shopping-cart fa-2x'></i></a>
-                                </div>";
-                            }
-                            ?>
+                            </div>
+                            <div class='single-icon shopping-cart'>
+                                <a href='login.php''><i class=' fa fa-shopping-cart fa-2x'></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,58 +116,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="index.php">Beranda</a>
                         </li>
-                        <?php
-
-                    if ($_SESSION['status'] == 'member') {
-                        echo ("      
-                          <ul class='navbar-nav'>
-                          <li class='nav-item dropdown'>
-                          <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' aria-expanded='true'>Laman</a>
-                          <div class='dropdown-menu'>
-                          <a class='dropdown-item' href='products.php'>Produk</a>
-                          <a class='dropdown-item' href='cart.php'>Keranjang</a>
-                          <a class='dropdown-item' href='order_detail.php'>Rincian Pesanan</a>
-                          </div>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='register_seller.php'>Ingin Buka Toko?</a>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='account.php'>$data_user[nama]</a>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar' role='button'>Keluar</a>
-                          </li>
-                          </ul>
-                          ");
-                    } elseif ($_SESSION['status'] == 'seller') {
-                        echo ("<ul class='navbar-nav'>
-                          <li class='nav-item dropdown'>
-                          <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' aria-expanded='true'>Laman</a>
-                          <div class='dropdown-menu'>
-                          <a class='dropdown-item' href='products.php'>Produk</a>
-                          <a class='dropdown-item' href='cart.php'>Keranjang</a>
-                          <a class='dropdown-item' href='order_detail.php'>Rincian Pesanan</a>
-                          </div>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='register_seller.php'>Ingin Buka Toko?</a>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='account.php'>$data_user[nama]</a>
-                          </li>
-                          <li class='nav-item d-lg-none'>
-                          <a class='nav-link' href='#modalKeluar' data-toggle='modal' data-target='#modalKeluar'>Keluar</a>
-                          </li>
-                          </ul>");
-                    } else {
-                        echo ("<a class='nav-link' href='products.php'>Produk</a>
-                            <li class='nav-item d-lg-none'>
+                        <a class='nav-link' href='products.php'>Produk</a>
+                        <li class='nav-item d-lg-none'>
                             <a class='nav-link' href='login.php'>Masuk</a>
-                            </li>");
-                    }
-
-                    ?>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -276,154 +177,23 @@
                                 <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel"
                                     aria-labelledby="tabs-icons-text-1-tab">
                                     <div class="text-center mt-5">
-                                        <?php
-            if (empty($fotoToko)) {
-                echo "<i class='fa fa-user-circle-o mb-3' style='font-size: 10em;'></i>";
-            }else{
-                echo "<img src='img/".$fotoToko."' class='rounded mx-auto d-flex mb-3' width='300' alt='profile' />";
-            }
-            ?>
+                                        <i class='fa fa-user-circle-o mb-3' style='font-size: 10em;'></i>
                                         <h3>Nama Toko</h3>
-                                        <p><?php echo $toko['nama_toko']; ?></p>
+                                        <p>AA</p>
                                         <h5>Alamat Toko</h5>
-                                        <p><?php echo $toko['alamat_toko']; ?></p>
+                                        <p>BB</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel"
                                     aria-labelledby="tabs-icons-text-2-tab">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Produk</th>
-                                                <th></th>
-                                                <th>Variasi</th>
-                                                <th>Warna</th>
-                                                <th>Jumlah</th>
-                                                <th>Harga</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-            $sql_tabel="SELECT * FROM checkout JOIN akun ON checkout.id_akun = akun.id_akun JOIN barang ON checkout.id_barang = barang.id_barang JOIN toko ON barang.id_toko = toko.id_toko WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]'";
-            $data_tabel = mysqli_query($koneksi, $sql_tabel);
-            $total_tabel = mysqli_num_rows($data_tabel);
-
-            if (!empty($total_tabel)){
-                $no = 1;
-                foreach ($koneksi->query($sql_tabel) as $data) :
-                    echo "<tr>
-                    <td>".$no++."</td>
-                    <td>".$data['nama_barang']."</td>
-                    <td><img src='img/".$data['foto_barang']."' width='100' height='100'></td>
-                    <td>".$data['variasi_order']."</td>
-                    <td>".$data['warna_order']."</td>
-                    <td>".$data['jumlah']."</td>
-                    <td>Rp. ".number_format($data['harga_barang'],2,",",".")."</td>
-                    <td>".$data['status_order']."</td>
-                    <td>
-                    <a href='update-order.php?id_checkout=".$data['id_checkout']."' type='button' class='btn btn-warning'>Ubah</a>
-                    </td>
-                    </tr>";
-                endforeach;
-                ?>
-                                        </tbody>
-                                    </table>
-                                    <?php } elseif (empty($total_tabel)) {
-        echo "</tbody>
-        </table>
-        <p class='text-center'>Tidak ada pesanan</p>";
-    } ?>
                                 </div>
                                 <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel"
                                     aria-labelledby="tabs-icons-text-3-tab">
                                     <button class="btn btn-primary mb-3" data-toggle="modal"
                                         data-target="#addProductModal">Tambah Produk</button>
-                                    <table class="table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Produk</th>
-                                            <th></th>
-                                            <th>Variasi</th>
-                                            <th>Warna</th>
-                                            <th>Harga</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                        <?php
-    $sql="SELECT * FROM barang JOIN toko ON barang.id_toko = toko.id_toko JOIN akun ON toko.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-    $data = mysqli_query($koneksi, $sql);
-    $total = mysqli_num_rows($data);
-
-    if (!empty($total)){
-        $no = 1;
-        foreach ($koneksi->query($sql) as $data) :
-            echo "<tr>
-                <td>".$no++."</td>
-                <td>".$data['nama_barang']."</td>
-                <td>
-                <img src='img/".$data['foto_barang']."' width='100' height='100'>
-                </td>
-                <td>".$data['variasi']."</td>
-                <td>".$data['warna']."</td>
-                <td>Rp. ".number_format($data['harga_barang'],2,",",".")."</td>
-                <td>
-                    <a href='edit_produk.php?id_barang=".$data['id_barang']."' type='button' class='btn btn-warning'>Ubah Produk</a>
-                <a href='tambah_stok.php?id_barang=".$data['id_barang']."' type='button' class='btn btn-primary'>Tambah Stok</a>
-                <a href='proses/hapus.php?id_barang=".$data['id_barang']."&tipe=produk' type='button' class='btn btn-danger'>Hapus</a>
-                </td>
-            </tr>
-            ";
-        endforeach;
-        ?>
-                                    </table>
-                                    <?php } elseif (empty($total)) {
-    echo "</table>
-    <p class='text-center'>Tidak ada produk</p>";
-} ?>
                                 </div>
                                 <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel"
                                     aria-labelledby="tabs-icons-text-4-tab">
-                                    <table class="table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Produk</th>
-                                            <th></th>
-                                            <th>Variasi</th>
-                                            <th>Warna</th>
-                                            <th>Stok</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                        <?php
-    $sql="SELECT * FROM barang  JOIN toko ON barang.id_toko = toko.id_toko JOIN stok ON barang.id_barang = stok.id_barang JOIN akun ON toko.id_akun = akun.id_akun WHERE akun.username='$_SESSION[username]' OR akun.email='$_SESSION[username]' OR akun.no_telp='$_SESSION[username]' ";
-    $data = mysqli_query($koneksi, $sql);
-    $total = mysqli_num_rows($data);
-
-    if (!empty($total)){
-        $no = 1;
-        foreach ($koneksi->query($sql) as $data) :
-            echo "<tr>
-                <td>".$no++."</td>
-                <td>".$data['nama_barang']."</td>
-                <td>
-                <img src='img/".$data['foto_barang']."' width='100' height='100'>
-                </td>
-                <td>".$data['variasi_stok']."</td>
-                <td>".$data['warna_stok']."</td>
-                <td>".$data['stok_barang']."</td>
-                <td>
-                <a href='edit_stok.php?id_stok=".$data['id_stok']."&id_barang=".$data['id_barang']."' type='button' class='btn btn-warning'>Ubah Stok</a>
-                </td>
-            </tr>
-            ";
-        endforeach;
-        ?>
-                                    </table>
-                                    <?php } elseif (empty($total)) {
-    echo "</table>
-    <p class='text-center'>Tidak ada produk</p>";
-} ?>
                                 </div>
                                 <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel"
                                     aria-labelledby="tabs-icons-text-5-tab">
@@ -444,11 +214,6 @@
                                             <label for="inputAddress2" class="form-label">Alamat Toko</label>
                                             <input type="text" name="alamat_toko" class="form-control"
                                                 id="inputAddress2" />
-                                        </div>
-                                        <div>
-                                            <input type="hidden" name="id_akun"
-                                                value="<?php echo $data_user['id_akun']; ?>">
-                                            <input type="hidden" name="id_toko" value="<?php echo $toko['id_toko']; ?>">
                                         </div>
                                         <div class="container">
                                             <button type="submit" class="btn btn-primary mb-5 mt-3">Perbarui</button>
@@ -480,8 +245,6 @@
                         <div class="mb-3">
                             <label for="nameProduct" class="form-label">Nama Produk</label>
                             <input type="text" name="nama_barang" class="form-control" id="nameProduct" />
-                            <input type="hidden" name="id_toko" class="form-control"
-                                value="<?php echo $toko['id_toko']; ?>" readonly />
                         </div>
                         <div class="mb-3">
                             <label for="descProduct" class="form-label">Deskripsi Produk</label>
@@ -492,15 +255,6 @@
                             <label for="descProduct" class="form-label">Kategori Produk</label>
                             <select class="form-control" name="jenis_barang">
                                 <option selected disabled>-- Pilih Kategori Barang --</option>
-                                <?php
-                        $sql = "SELECT * FROM kategori";
-                        foreach ($koneksi->query($sql) as $data) :
-                            ?>
-                                <option value="<?php echo $data['jenis_barang']; ?>">
-                                    <?php echo $data['jenis_barang']; ?></option>
-                                <?php
-                        endforeach;
-                        ?>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -643,67 +397,67 @@
     <script src="./assets/js/main.js"></script>
 
     <script type="text/javascript">
-    // tombol tambah
-    // function tambahVarian() {
-    //   var li = document.createElement("li");
-    //   var inputValue = document.getElementById("variasi").value;
-    //   var t = document.createTextNode(inputValue);
-    //   li.appendChild(t);
-    //   document.getElementById("tampilanVariasi").appendChild(li);
-    //   document.getElementById("variasi").value = "";
+        // tombol tambah
+        // function tambahVarian() {
+        //   var li = document.createElement("li");
+        //   var inputValue = document.getElementById("variasi").value;
+        //   var t = document.createTextNode(inputValue);
+        //   li.appendChild(t);
+        //   document.getElementById("tampilanVariasi").appendChild(li);
+        //   document.getElementById("variasi").value = "";
 
-    //   var span = document.createElement("span");
-    //   var txt = document.createTextNode("\u00D7");
-    //   span.className = "close";
-    //   span.appendChild(txt);
-    //   li.appendChild(span);
+        //   var span = document.createElement("span");
+        //   var txt = document.createTextNode("\u00D7");
+        //   span.className = "close";
+        //   span.appendChild(txt);
+        //   li.appendChild(span);
 
-    //   for (i = 0; i < close.length; i++) {
-    //     close[i].onclick = function () {
-    //       var div = this.parentElement;
-    //       div.style.display = "none";
-    //     };
-    //   }
-    // }
+        //   for (i = 0; i < close.length; i++) {
+        //     close[i].onclick = function () {
+        //       var div = this.parentElement;
+        //       div.style.display = "none";
+        //     };
+        //   }
+        // }
 
-    // function tambahVarian2() {
-    //   var li = document.createElement("li");
-    //   var inputValue = document.getElementById("variasi2").value;
-    //   var t = document.createTextNode(inputValue);
-    //   li.appendChild(t);
-    //   document.getElementById("tampilanVariasi2").appendChild(li);
-    //   document.getElementById("variasi2").value = "";
+        // function tambahVarian2() {
+        //   var li = document.createElement("li");
+        //   var inputValue = document.getElementById("variasi2").value;
+        //   var t = document.createTextNode(inputValue);
+        //   li.appendChild(t);
+        //   document.getElementById("tampilanVariasi2").appendChild(li);
+        //   document.getElementById("variasi2").value = "";
 
-    //   var span = document.createElement("span");
-    //   var txt = document.createTextNode("\u00D7");
-    //   span.className = "close";
-    //   span.appendChild(txt);
-    //   li.appendChild(span);
+        //   var span = document.createElement("span");
+        //   var txt = document.createTextNode("\u00D7");
+        //   span.className = "close";
+        //   span.appendChild(txt);
+        //   li.appendChild(span);
 
-    //   for (i = 0; i < close.length; i++) {
-    //     close[i].onclick = function () {
-    //       var div = this.parentElement;
-    //       div.style.display = "none";
-    //     };
-    //   }
-    // }
+        //   for (i = 0; i < close.length; i++) {
+        //     close[i].onclick = function () {
+        //       var div = this.parentElement;
+        //       div.style.display = "none";
+        //     };
+        //   }
+        // }
 
-    // // tombol hapus di setiap list
-    // var close = document.getElementsByClassName("close");
-    // var i;
-    // for (i = 0; i < close.length; i++) {
-    //   close[i].onclick = function() {
-    //     li.style.display = "none";
-    //   }
-    // }
+        // // tombol hapus di setiap list
+        // var close = document.getElementsByClassName("close");
+        // var i;
+        // for (i = 0; i < close.length; i++) {
+        //   close[i].onclick = function() {
+        //     li.style.display = "none";
+        //   }
+        // }
 
-    // var close = document.getElementsByClassName("close");
-    // var i;
-    // for (i = 0; i < close.length; i++) {
-    //   close[i].onclick = function() {
-    //     li.style.display = "none";
-    //   }
-    // }
+        // var close = document.getElementsByClassName("close");
+        // var i;
+        // for (i = 0; i < close.length; i++) {
+        //   close[i].onclick = function() {
+        //     li.style.display = "none";
+        //   }
+        // }
     </script>
 
 </body>
